@@ -80,3 +80,44 @@ TEST_CASE("Sequential Operations")
     REQUIRE(list.PopBack() == 5);
     REQUIRE(list.Empty() == true);
 }
+
+TEST_CASE("Push and Pop")
+{
+    List list;
+    list.PushBack(1);
+    list.PushBack(2);
+    list.PushBack(3);
+    REQUIRE(list.PopFront() == 1);
+    REQUIRE(list.PopFront() == 2);
+    REQUIRE(list.PopFront() == 3);
+
+    list.PushFront(5);
+    list.PushFront(6);
+    REQUIRE(list.PopBack() == 5);
+    REQUIRE(list.PopBack() == 6);
+}
+
+TEST_CASE("Clear and Push")
+{
+    List list;
+    list.PushBack(1);
+    list.PushBack(2);
+    list.Clear();
+    REQUIRE(list.Empty());
+    REQUIRE(list.Size() == 0);
+
+    list.PushBack(3);
+    list.PushFront(4);
+    REQUIRE(list.Size() == 2);
+    REQUIRE(list.PopFront() == 4);
+    REQUIRE(list.PopFront() == 3);
+}
+
+TEST_CASE("Pop Empty")
+{
+    List list;
+    list.PushBack(10);
+    list.Clear();
+    REQUIRE_THROWS_AS(list.PopBack(), std::runtime_error);
+    REQUIRE_THROWS_AS(list.PopFront(), std::runtime_error);
+}
